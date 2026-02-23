@@ -1,6 +1,8 @@
----
+# Advanced-Programming-Laboratory (071402CSE2100)
 
-# **GTK File Manager**
+***
+
+# **File Manager Application**
 
 ## Design Pattern & Refactoring Documentation
 
@@ -334,5 +336,3 @@ Applied by Prompt 3. The single documented file was split into 17 files:
 - The Data struct can be extended with new fields without touching any function signatures.
 
 ---
-
-*— End of Document —*
