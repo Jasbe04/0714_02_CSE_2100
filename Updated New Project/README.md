@@ -171,24 +171,6 @@ protected:
 class CopyOperation   : public FileOperation { ... };
 class MoveOperation   : public FileOperation { ... };
 class DeleteOperation : public FileOperation { ... };
-```
-
-Adding a `CompressOperation` in the future requires only a new file — zero changes to existing code:
-
-```cpp
-// New file: compress_operation.hpp
-class CompressOperation : public FileOperation {
-    void execute(IProgressReporter *r) override {
-        r->show(operationName());
-        // zip logic here
-        r->hide();
-    }
-    const char *operationName() const override { return "Compressing..."; }
-};
-```
-
-No changes needed in `file_op.cpp`, `ui.cpp`, or `main.cpp`. That is OCP in practice.
-
 ---
 
 ### 2.3 L — Liskov Substitution Principle (LSP)
