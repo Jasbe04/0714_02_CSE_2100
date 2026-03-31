@@ -171,6 +171,8 @@ protected:
 class CopyOperation   : public FileOperation { ... };
 class MoveOperation   : public FileOperation { ... };
 class DeleteOperation : public FileOperation { ... };
+```
+
 ---
 
 ### 2.3 L — Liskov Substitution Principle (LSP)
@@ -603,7 +605,6 @@ classDiagram
     main  -->  MenuOperations    : creates
     main  -->  FolderCreator     : creates
     main  -->  UIController      : creates & wires
-
 ```
 
 ---
