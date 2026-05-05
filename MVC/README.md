@@ -37,6 +37,50 @@ The document is structured in three parts:
 - A detailed class-by-class mapping of what was removed, merged, split, or added
 - A reference section covering the new MVC interfaces, data flow, and build instructions
 
+### MVC Architecture Overview
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                           MVC THREE-LAYER ARCHITECTURE                                 │
+│                                                                                        │
+│  ┌──────────────────────┐    User Events →    ┌────────────────────────┐              │
+│  │         VIEW         │ ──────────────────► │       CONTROLLER       │              │
+│  │    FileManagerView   │                     │  FileManagerController │              │
+│  │                      │ ◄────────────────── │                        │              │
+│  │  • Owns all GTK      │    ← Update View    │  • Routes user events  │              │
+│  │    widgets           │                     │  • Calls Model methods │              │
+│  │  • Renders file      │                     │  • Calls View updates  │              │
+│  │    listings          │                     │  • No business logic   │              │
+│  │  • Displays icons    │                     │  • No GTK widgets      │              │
+│  │    & paths           │                     │                        │              │
+│  │  • Shows progress    │                     │  Files:                │              │
+│  │    dialogs           │                     │  controller.hpp/.cpp   │              │
+│  │  • Emits UI signals  │                     └───────────┬────────────┘              │
+│  │                      │                                 │            ▲              │
+│  │  Files:              │                    Calls Model ►│            │ ◄ Model      │
+│  │  view.hpp/.cpp       │                                 │            │   Notify     │
+│  └──────────────────────┘                                 ▼            │              │
+│                                              ┌────────────┴────────────┐              │
+│                                              │          MODEL          │              │
+│                                              │     FileSystemModel     │              │
+│                                              │                         │              │
+│                                              │  • Navigation stacks    │              │
+│                                              │  • Clipboard state      │              │
+│                                              │  • Filesystem queries   │              │
+│                                              │  • Business rules only  │              │
+│                                              │  • No GTK dependency    │              │
+│                                              │                         │              │
+│                                              │  Files:                 │              │
+│                                              │  model.hpp/.cpp         │              │
+│                                              └─────────────────────────┘              │
+│                                                                                        │
+│  Data Flow: User → View → Controller → Model  |  Notify: Model → Controller → View    │
+│  Key: Model has NO GTK dep · View has NO business logic · Controller has NO state      │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+*Figure 1: MVC three-layer architecture showing data flow between View, Controller, and Model*
+
 ---
 
 ## 2. Original Design (Updated New Project)
